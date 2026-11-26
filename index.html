@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f3eb">
+  <meta name="description" content="A sample wedding invitation for Lerato and Thabo, celebrating in two beautiful chapters.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lerato &amp; Thabo | Wedding Invitation">
+  <meta property="og:description" content="Two celebrations, one love story. Join us for the White Wedding and Traditional Wedding.">
+  <title>Lerato &amp; Thabo | Wedding Invitation</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="js/qrcode.js" defer></script>
+  <script src="js/invite.js" defer></script>
+</head>
+<body data-ceremony="white" class="invite-locked">
+  <section class="opening-screen" data-opening-screen aria-label="Open your wedding invitation">
+    <div class="opening-envelope">
+      <p class="opening-kicker">A celebration awaits</p>
+      <div class="envelope-art" data-envelope>
+        <div class="envelope-letter"><span>YOU ARE INVITED</span><strong data-couple-initials>L &amp; T</strong></div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-seal" aria-hidden="true"><span data-seal-initials>L · T</span></div>
+        <div class="envelope-front"></div>
+      </div>
+      <button class="break-seal-button" type="button" data-break-seal>Break the seal</button>
+      <p class="opening-hint">Tap to open your invitation</p>
+      <div class="opening-music" data-opening-music>
+        <audio data-opening-audio preload="auto"></audio>
+        <button class="music-toggle" type="button" data-music-toggle aria-label="Pause the song" aria-pressed="true" disabled>
+          <span class="music-icon" aria-hidden="true">♫</span><span data-music-label>Preparing The Best Part by Savy…</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <a class="skip-link" href="#main">Skip to invitation</a>
+  <header class="topbar">
+    <nav class="ceremony-switch" aria-label="Choose a wedding celebration">
+      <button class="switch-option is-active" type="button" data-ceremony-button="white" aria-pressed="true">White</button>
+      <button class="switch-option" type="button" data-ceremony-button="traditional" aria-pressed="false">Traditional</button>
+    </nav>
+    <button class="save-button" type="button" data-calendar aria-label="Add this celebration to your calendar">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M7.5 3v4M16.5 3v4M4 9.5h16"/></svg>
+      <span class="calendar-date"><strong data-bind="calendarDay">Sunday</strong><small data-bind="calendarDate">14 Feb 2027</small></span>
+    </button>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <img class="hero-background" data-hero-image src="assets/white/w5.jpeg" alt="The couple together in their white wedding attire">
+      <div class="hero-background-shade" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span><span data-bind="heroEyebrow">A SAMPLE WEDDING INVITATION</span></p>
+        <p class="hero-kicker" data-bind="heroKicker">A celebration in two chapters</p>
+        <h1 id="hero-title"><span data-bind="firstNames">Lerato <i>&amp;</i> Thabo</span><em data-bind="heroSubline">invite you to celebrate</em></h1>
+        <p class="hero-summary" data-bind="heroSummary">Share the day of love with us as we celebrate a love that brings two families together. We can’t wait to welcome you.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#celebration">Explore the celebration <span aria-hidden="true">↓</span></a>
+          <a class="text-link" href="#rsvp">Kindly RSVP <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#celebration" aria-label="Scroll to celebration details"><span></span></a>
+    </section>
+
+    <section class="intro section-pad" id="celebration">
+      <p class="section-label"><span></span> OUR JOURNEY SO FAR <span></span></p>
+      <div class="intro-grid journey-grid">
+        <div class="journey-lead">
+          <h2><span data-bind="introHeading">It all started...</span><br><em>with a hello.</em></h2>
+          <p class="signature" data-bind="signature">With love, Lerato &amp; Thabo</p>
+        </div>
+        <div class="intro-message">
+          <p data-bind="invitationMessage">A simple hello grew into a friendship, then a love that felt like home. We’ve shared new adventures, ordinary days made special, and a thousand reasons to choose each other. Now we can’t wait to begin our next chapter with the people we love around us.</p>
+        </div>
+      </div>
+      <ol class="journey-milestones" aria-label="Our story">
+        <li><span>01</span><div><strong>The first hello</strong><p>A chance meeting became our favourite conversation.</p></div></li>
+        <li><span>02</span><div><strong>Growing together</strong><p>Every season brought another reason to choose us.</p></div></li>
+        <li><span>03</span><div><strong>Our next chapter</strong><p>Two celebrations, one promise, a lifetime ahead.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="photo-story section-pad" aria-labelledby="photo-heading">
+      <div class="photo-story-heading">
+        <p class="section-label"><span></span> MOMENTS TO KEEP <span></span></p>
+        <h2 id="photo-heading">A little glimpse<br><em>of our story.</em></h2>
+      </div>
+      <div class="photo-grid" data-gallery aria-live="polite">
+        <figure class="photo-card photo-card-wide"><img src="assets/white/w3.jpeg" alt="Bride in her white wedding dress"><figcaption>A beautiful beginning</figcaption></figure>
+        <figure class="photo-card"><img src="assets/white/w1.jpeg" alt="Groom in a white wedding suit"><figcaption>Ready for forever</figcaption></figure>
+        <figure class="photo-card"><img src="assets/white/w4.jpeg" alt="A quiet moment before the ceremony"><figcaption>A quiet moment before</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="countdown-section" aria-labelledby="countdown-title">
+      <img class="countdown-background" data-countdown-bg src="assets/white/w3.jpeg" alt="">
+      <div class="countdown-background-shade" aria-hidden="true"></div>
+      <div class="countdown-content">
+        <p class="section-label section-label-light"><span></span> THE DAY IS GETTING CLOSER <span></span></p>
+        <h2 id="countdown-title"><span data-bind="ceremonyName">The White Wedding</span><br><em data-bind="dateLong">Sunday, 14 February 2027</em></h2>
+        <p class="countdown-time" data-bind="timeRange">9:00 AM — 12:30 PM</p>
+        <div class="countdown" aria-label="Countdown to this ceremony" aria-live="polite">
+          <div><strong data-count="days">000</strong><span>DAYS</span></div>
+          <div><strong data-count="hours">00</strong><span>HOURS</span></div>
+          <div><strong data-count="minutes">00</strong><span>MINUTES</span></div>
+          <div><strong data-count="seconds">00</strong><span>SECONDS</span></div>
+        </div>
+        <button class="button button-light" type="button" data-calendar>Add to calendar <span aria-hidden="true">↓</span></button>
+      </div>
+    </section>
+
+    <section class="event-section section-pad" aria-labelledby="event-heading">
+      <div class="event-heading-row">
+        <div>
+          <p class="section-label section-label-light"><span></span> PLAN YOUR VISIT <span></span></p>
+          <h2 id="event-heading">The details<br><em data-bind="ceremonySubline">the beginning of forever</em></h2>
+        </div>
+        <div class="event-number"><span data-bind="eventNumber">01</span><i>/ 02</i></div>
+      </div>
+      <div class="event-grid" aria-live="polite">
+        <article class="event-card event-card-place">
+          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.2"/></svg></span>
+          <p class="card-label">MEET US AT</p>
+          <h3 data-bind="venueName">The Garden House</h3>
+          <p data-bind="venueAddress">Ballito, KwaZulu-Natal</p>
+        </article>
+        <article class="event-card event-card-dress">
+          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 4 4 3 4-3 4 3-2 4-2-1v10H8V10l-2 1-2-4 4-3Z"/></svg></span>
+          <p class="card-label">DRESS WITH US</p>
+          <h3 data-bind="dressCode">Formal attire</h3>
+          <p data-bind="dressNote">Garden formal · soft neutrals</p>
+        </article>
+        <article class="event-card map-card">
+          <iframe data-map-frame title="Map to the wedding venue" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Ballito%2C%20KwaZulu-Natal&amp;output=embed"></iframe>
+          <div class="map-card-overlay"><p class="card-label">FIND YOUR WAY</p><a class="map-button" data-map-link href="https://maps.google.com" target="_blank" rel="noopener noreferrer"><span>Open directions</span><span aria-hidden="true">↗</span></a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="programme section-pad">
+      <div class="programme-heading">
+        <p class="section-label"><span></span> THE DAY, AT A GLANCE <span></span></p>
+        <h2>The day,<br><em>beautifully timed.</em></h2>
+        <p class="programme-intro">From the family welcome to the final dance, here’s how we’ll share this special day.</p>
+      </div>
+      <ol class="timeline" data-programme>
+        <li><time>9:00 AM</time><span class="timeline-dot"></span><div><h3>Guest arrival</h3><p>Welcome drinks and a chance to find your seat.</p></div></li>
+        <li><time>9:30 AM</time><span class="timeline-dot"></span><div><h3>The white ceremony</h3><p>Join us as we make our promises to one another.</p></div></li>
+        <li><time>11:00 AM</time><span class="timeline-dot"></span><div><h3>Photos &amp; refreshments</h3><p>A chance to greet the couple and families.</p></div></li>
+        <li><time>12:00 PM</time><span class="timeline-dot"></span><div><h3>Farewell</h3><p>A little pause before the afternoon celebration.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="menu-section section-pad" aria-labelledby="menu-heading">
+      <div class="menu-heading">
+        <p class="section-label"><span></span> A TASTE OF THE DAY <span></span></p>
+        <h2 id="menu-heading">On the menu,<br><em>with love.</em></h2>
+      </div>
+      <div class="menu-grid" data-menu aria-live="polite"></div>
+      <p class="menu-note">Please let us know about any dietary requirements in your RSVP note.</p>
+    </section>
+
+    <section class="moments-section section-pad" aria-labelledby="moments-heading">
+      <div class="moments-intro">
+        <p class="section-label"><span></span> GUEST MOMENTS <span></span></p>
+        <h2 id="moments-heading">See the day<br><em>through your eyes.</em></h2>
+        <p>Look out for this space during the celebration. When the event begins, you’ll be able to add your photos and share the little moments you captured.</p>
+      </div>
+      <div class="moments-panel">
+        <div class="moments-locked" data-moments-locked>
+          <span class="moments-lock-icon" aria-hidden="true">⌑</span>
+          <p class="card-label">GUEST MOMENTS</p>
+          <h3 data-moments-lock-title>Sharing opens when the celebration begins</h3>
+          <p data-moments-lock-copy>The photo wall is waiting for the day to start.</p>
+        </div>
+        <div class="moments-open" data-moments-open hidden>
+          <label class="upload-button">
+            <input type="file" accept="image/*" multiple data-moments-input>
+            <span>Add your photos</span><span aria-hidden="true">＋</span>
+          </label>
+          <p class="moments-note">In this static demo, photos preview only in this browser; shared guest uploads need the live gallery connection.</p>
+          <div class="moments-gallery" data-moments-gallery aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="share-section section-pad" aria-labelledby="share-heading">
+      <div class="share-copy">
+        <p class="section-label"><span></span> SHARE THE INVITATION <span></span></p>
+        <h2 id="share-heading">One quick scan<br><em>brings you here.</em></h2>
+        <p>Open this invitation on another phone by scanning the code.</p>
+      </div>
+      <div class="share-qr-card">
+        <canvas data-share-qr width="240" height="240" role="img" aria-label="QR code linking to this wedding invitation"></canvas>
+        <span data-share-url-label>Scan to open the invitation</span>
+      </div>
+    </section>
+
+    <section class="rsvp-section section-pad" id="rsvp">
+      <div class="rsvp-card">
+        <div class="rsvp-flower" aria-hidden="true">✳</div>
+        <p class="section-label"><span></span> WE HOPE YOU CAN JOIN US <span></span></p>
+        <h2>Save your<br><em>place.</em></h2>
+        <p class="rsvp-copy" data-bind="rsvpCopy">Let us know which celebration you’ll join by 1 February 2027.</p>
+        <form class="rsvp-form" data-rsvp-form>
+          <div class="form-grid">
+            <label>Your name<input name="guestName" autocomplete="name" required placeholder="Your name"></label>
+            <label>Phone number <span>(optional)</span><input name="phone" type="tel" autocomplete="tel" placeholder="071 234 5678"></label>
+            <label>Number of people<input name="guests" type="number" min="1" max="10" value="1" required></label>
+          </div>
+          <label>Which celebration will you attend?
+            <select name="celebration" required>
+              <option value="both">Both celebrations</option>
+              <option value="white">White wedding only</option>
+              <option value="traditional">Traditional wedding only</option>
+            </select>
+          </label>
+          <label>A note for the couple <span>(optional)</span><textarea name="message" rows="3" placeholder="Leave a little note..."></textarea></label>
+          <fieldset class="rsvp-choice">
+            <legend>Will you join us?</legend>
+            <label><input type="radio" name="response" value="accept" required><span>Joyfully accept</span></label>
+            <label><input type="radio" name="response" value="decline" required><span>Regretfully decline</span></label>
+          </fieldset>
+          <button class="button button-dark" type="submit">Send your RSVP <span aria-hidden="true">↗</span></button>
+          <p class="form-note" data-rsvp-status role="status">Your RSVP opens as an email draft for you to send.</p>
+        </form>
+        <p class="gift-note" data-bind="giftNote">Your presence is the loveliest present.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="footer-logo" href="https://www.inviteharbour.co.za" target="_blank" rel="noopener noreferrer" aria-label="Visit InviteHarbour">
+      <img src="assets/inviteharbour.png" alt="InviteHarbour — One Link. Every Detail.">
+    </a>
+    <p class="footer-made">Made for <strong data-bind="footerClient">Lerato &amp; Thabo</strong></p>
+    <a class="footer-site" href="https://www.inviteharbour.co.za" target="_blank" rel="noopener noreferrer">www.inviteharbour.co.za</a>
+  </footer>
+</body>
+</html>
