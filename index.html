@@ -27,8 +27,8 @@
       <p class="opening-hint">Tap to open your invitation</p>
       <div class="opening-music" data-opening-music>
         <audio data-opening-audio preload="auto"></audio>
-        <button class="music-toggle" type="button" data-music-toggle aria-label="Pause the song" aria-pressed="true" disabled>
-          <span class="music-icon" aria-hidden="true">♫</span><span data-music-label>Preparing The Best Part by Savy…</span>
+        <button class="music-toggle" type="button" data-music-toggle aria-label="Play The Best Part" aria-pressed="false" disabled>
+          <span class="music-icon" aria-hidden="true">♫</span><span data-music-label>Loading The Best Part…</span>
         </button>
       </div>
     </div>
@@ -154,7 +154,7 @@
     <section class="menu-section section-pad" aria-labelledby="menu-heading">
       <div class="menu-heading">
         <p class="section-label"><span></span> A TASTE OF THE DAY <span></span></p>
-        <h2 id="menu-heading">On the menu,<br><em>with love.</em></h2>
+        <h2 id="menu-heading">A feast to share,<br><em>made with love.</em></h2>
       </div>
       <div class="menu-grid" data-menu aria-live="polite"></div>
       <p class="menu-note">Please let us know about any dietary requirements in your RSVP note.</p>
@@ -230,11 +230,13 @@
   </main>
 
   <footer class="footer">
-    <a class="footer-logo" href="https://www.inviteharbour.co.za" target="_blank" rel="noopener noreferrer" aria-label="Visit InviteHarbour">
-      <img src="assets/inviteharbour.png" alt="InviteHarbour — One Link. Every Detail.">
-    </a>
-    <p class="footer-made">Made for <strong data-bind="footerClient">Lerato &amp; Thabo</strong></p>
-    <a class="footer-site" href="https://www.inviteharbour.co.za" target="_blank" rel="noopener noreferrer">www.inviteharbour.co.za</a>
+    <div class="footer-brand">
+      <a class="footer-logo" href="https://www.inviteharbour.co.za" target="_blank" rel="noopener noreferrer" aria-label="Visit InviteHarbour">
+        <img src="assets/inviteharbour.png" alt="InviteHarbour — One Link. Every Detail.">
+      </a>
+      <a class="footer-site" href="https://www.inviteharbour.co.za" target="_blank" rel="noopener noreferrer">www.inviteharbour.co.za</a>
+    </div>
+    <p class="footer-made"><span>Made for</span><strong data-bind="footerClient">Lerato &amp; Thabo</strong></p>
   </footer>
 </body>
 </html>

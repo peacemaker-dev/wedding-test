@@ -42,9 +42,8 @@ const INVITE = {
         ['12:00 PM', 'Farewell', 'A little pause before the afternoon celebration.']
       ],
       menu: [
-        ['Welcome', 'Drinks and light canapés'],
-        ['Lunch', 'A seasonal celebration meal'],
-        ['Sweet finish', 'Wedding cake and coffee']
+        ['MENU: STARCH', 'Savoury rice · Ujeqe · Samp'],
+        ['MENU: CURRY', 'Beef stew · Chicken curry · Mutton curry']
       ]
     },
     traditional: {
@@ -75,9 +74,8 @@ const INVITE = {
         ['5:30 PM', 'Celebration & family photos', 'Make a memory together before the day continues.']
       ],
       menu: [
-        ['Family welcome', 'Refreshments and savoury bites'],
-        ['Traditional feast', 'A generous family-style meal'],
-        ['Sweet finish', 'Celebration cake and tea']
+        ['MENU: STARCH', 'Savoury rice · Ujeqe · Samp'],
+        ['MENU: CURRY', 'Beef stew · Chicken curry · Mutton curry']
       ]
     }
   }
@@ -302,28 +300,50 @@ const INVITE = {
   const initials = INVITE.couple.firstNames.split('&').map((name) => name.trim()[0]).filter(Boolean).join(' & ');
   setText('[data-couple-initials]', initials);
   setText('[data-seal-initials]', initials.replace(' & ', ' · '));
-  if (openingAudio) openingAudio.src = INVITE.openingSong;
   let songReady = false;
+  let songFailed = false;
   let revealFinished = false;
   let songStarted = false;
+  let openingTapped = false;
+  const updateMusicStatus = (message) => { if (musicLabel) musicLabel.textContent = message; };
+  const fadeInSong = () => {
+    if (!openingAudio || openingAudio.paused || !revealFinished || !openingTapped) return;
+    openingAudio.muted = false;
+    let volume = openingAudio.volume;
+    const fade = window.setInterval(() => {
+      volume = Math.min(.42, volume + .035);
+      openingAudio.volume = volume;
+      if (volume >= .42) window.clearInterval(fade);
+    }, 90);
+  };
   const startSongFromEightSeconds = () => {
     if (!openingAudio) return Promise.resolve();
-    if (!songStarted) {
-      openingAudio.currentTime = 8;
-      songStarted = true;
-    }
+    if (!songStarted && openingAudio.readyState >= 1) { openingAudio.currentTime = Math.min(8, Math.max(0, openingAudio.duration - 1)); songStarted = true; }
     return openingAudio.play();
   };
+  openingAudio?.addEventListener('loadedmetadata', () => {
+    songReady = true;
+    if (!songStarted && openingAudio.duration > 8) { openingAudio.currentTime = 8; songStarted = true; }
+    if (musicButton) musicButton.disabled = !revealFinished;
+    updateMusicStatus(revealFinished ? 'Play · The Best Part' : 'Song ready · starts on opening');
+  });
   openingAudio?.addEventListener('canplay', () => {
     songReady = true;
     if (musicButton) musicButton.disabled = !revealFinished;
-    if (musicLabel) musicLabel.textContent = revealFinished ? 'Play · The Best Part' : 'Starts after the reveal';
-  }, { once: true });
+    if (!songFailed) updateMusicStatus(revealFinished ? 'Play · The Best Part' : 'Song ready · starts on opening');
+  });
+  openingAudio?.addEventListener('playing', fadeInSong);
   openingAudio?.addEventListener('error', () => {
-    if (musicButton) musicButton.hidden = true;
-  }, { once: true });
+    songFailed = true;
+    songReady = false;
+    if (musicButton) musicButton.disabled = !revealFinished;
+    updateMusicStatus('Song unavailable · tap to retry');
+  });
+  if (openingAudio) { openingAudio.src = INVITE.openingSong; openingAudio.load(); }
   musicButton?.addEventListener('click', () => {
-    if (!openingAudio || !songReady || !revealFinished) return;
+    if (!openingAudio || !revealFinished) return;
+    if (songFailed) { songFailed = false; openingAudio.load(); updateMusicStatus('Loading The Best Part…'); return; }
+    if (!songReady) { updateMusicStatus('Still loading · try again shortly'); return; }
     if (openingAudio.paused) {
       startSongFromEightSeconds().then(() => {
         musicButton.setAttribute('aria-label', 'Pause the song');
@@ -342,10 +362,12 @@ const INVITE = {
     openButton.disabled = true;
     openingScreen.classList.add('is-opening');
     openingEnvelope.classList.add('is-opening');
-    if (openingAudio && songReady) {
+    openingTapped = true;
+    if (openingAudio) {
       openingAudio.muted = true;
       openingAudio.volume = 0;
-      startSongFromEightSeconds().catch(() => {});
+      if (openingAudio.readyState >= 1 && !songStarted) { openingAudio.currentTime = Math.min(8, Math.max(0, openingAudio.duration - 1)); songStarted = true; }
+      startSongFromEightSeconds().catch(() => { if (songFailed) updateMusicStatus('Song unavailable · tap to retry'); });
     }
     window.setTimeout(() => {
       openingScreen.classList.add('is-revealed');
@@ -354,23 +376,17 @@ const INVITE = {
       window.setTimeout(() => document.body.classList.remove('invite-revealing'), 1250);
       window.setTimeout(() => {
         revealFinished = true;
-        if (musicButton && songReady) musicButton.disabled = false;
+        if (musicButton) musicButton.disabled = false;
         if (openingAudio && songReady && !openingAudio.paused) {
-          openingAudio.muted = false;
           if (musicLabel) musicLabel.textContent = 'Pause · The Best Part';
           musicButton?.setAttribute('aria-label', 'Pause The Best Part');
           musicButton?.setAttribute('aria-pressed', 'true');
-          let volume = 0;
-          const fade = window.setInterval(() => {
-            volume = Math.min(.42, volume + .035);
-            openingAudio.volume = volume;
-            if (volume >= .42) window.clearInterval(fade);
-          }, 90);
+          fadeInSong();
         } else if (musicLabel && songReady) {
           musicLabel.textContent = 'Play · The Best Part';
           musicButton?.setAttribute('aria-label', 'Play The Best Part');
           musicButton?.setAttribute('aria-pressed', 'false');
-        }
+        } else if (songFailed) updateMusicStatus('Song unavailable · tap to retry');
       }, 650);
       const topbar = one('.topbar');
       if (topbar && musicButton && openingAudio) {

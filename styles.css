@@ -963,7 +963,7 @@ button {
   margin: 0;
   color: #756d60;
   text-align: center;
-  font-size: 0.7rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: .12em
 }
@@ -1321,7 +1321,7 @@ body[data-ceremony="traditional"] .art-sun {
     grid-column: 1/3;
     grid-row: 2;
     text-align: left;
-    font-size: .46rem
+    font-size: 0.65rem;
   }
 
   .back-top {
@@ -2629,7 +2629,7 @@ body[data-ceremony="traditional"] .countdown-background-shade {
   grid-row: 1;
   justify-self: end;
   color: #ffffffc2;
-  font-size: .67rem;
+  font-size: 0.75rem;
   text-decoration: none
 }
 
@@ -2960,4 +2960,103 @@ body.invite-revealing .hero {
 }
 @media (max-width: 380px) {
   .rsvp-choice { grid-template-columns: 1fr }
+}
+
+/* Final layout refinements: keep the hero copy low and let the palm artwork breathe. */
+.hero {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: end;
+  min-height: 100svh;
+  padding-top: 130px;
+  padding-bottom: clamp(72px, 12vh, 138px)
+}
+.hero-copy { align-self: end; padding-bottom: 0 }
+.hero-kicker { margin-top: clamp(22px, 4vh, 46px) }
+body {
+  background-position: center top;
+  background-size: min(760px, 100vw) auto;
+  background-repeat: repeat;
+  background-attachment: fixed
+}
+.intro, .photo-story, .programme, .rsvp-section {
+  background-color: color-mix(in srgb, var(--white) 78%, transparent)
+}
+.menu-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(90deg, #102b45ed, #102b45ce 48%, #102b45ed), url('assets/menu-food-bg.svg') center / cover no-repeat;
+  color: var(--white)
+}
+.menu-section .section-label { color: var(--accent-soft) }
+.menu-heading h2 { color: var(--white) }
+.menu-heading h2 em { color: var(--accent-soft) }
+.menu-card {
+  border-color: #f4ddb04a;
+  background: #ffffff12;
+  color: var(--white);
+  backdrop-filter: blur(5px)
+}
+.menu-number { display: none }
+.menu-card h3 {
+  margin: 0 0 12px;
+  color: var(--accent-soft);
+  font: 700 .75rem var(--sans);
+  letter-spacing: .14em
+}
+.menu-card p, .menu-note { color: #fffdf0d4 }
+.menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 850px }
+.map-card { width: 100%; min-width: 0; height: 300px; min-height: 300px }
+.map-card iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  min-height: 0
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px
+}
+.footer-brand { display: grid; justify-items: center; gap: 5px }
+.footer-logo img { width: min(205px, 46vw) }
+.footer-site { grid-column: auto; grid-row: auto; justify-self: center; font-size: 0.75rem; }
+.footer-made {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  grid-column: auto;
+  grid-row: auto;
+  text-align: right
+}
+.footer-made strong { margin: 0 }
+.opening-screen {
+  background: linear-gradient(150deg, #15372fe8, #102b45d9), url('assets/fresh-palm-leaves-beige-background.webp') center / cover repeat
+}
+.envelope-front {
+  background: linear-gradient(155deg, #24463cd9, #142f29e8), url('assets/fresh-palm-leaves-beige-background.webp') center / cover
+}
+.envelope-flap {
+  background: linear-gradient(160deg, #31574ad9, #1b392fe8), url('assets/fresh-palm-leaves-beige-background.webp') center / cover
+}
+@media (max-width: 760px) {
+  .hero {
+    min-height: 100svh;
+    padding: 112px 22px max(64px, 9vh)
+  }
+  .hero-copy { width: 100%; max-width: none }
+  .hero-kicker { margin-top: 22px }
+  .map-card { width: 100%; height: 270px; min-height: 270px }
+  .map-card iframe { width: 100%; height: 100%; min-height: 0 }
+  .menu-grid { grid-template-columns: 1fr; gap: 10px }
+  .menu-card { display: block; padding: 18px }
+  .menu-card h3 { margin: 0 0 9px }
+  .footer { display: flex; align-items: center; gap: 12px; padding: 16px 18px }
+  .footer-logo img { width: min(155px, 42vw) }
+  .footer-made { font-size: .82rem }
+  .footer-site { font-size: 0.75rem; }
+  body { background-attachment: scroll; background-size: min(600px, 100vw) auto }
 }
