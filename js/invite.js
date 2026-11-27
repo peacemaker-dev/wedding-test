@@ -199,8 +199,35 @@ const INVITE = {
     const blob = new Blob([contents], { type: 'text/calendar;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.href = url; link.download = `lerato-thabo-${activeKey}-wedding.ics`;
+    link.href = url; link.download = `inviteharbour-${activeKey}-wedding.ics`;
     document.body.append(link); link.click(); link.remove(); URL.revokeObjectURL(url);
+  }
+
+  function openCalendarChooser() {
+    const ceremony = INVITE.ceremonies[activeKey];
+    const dialog = one('[data-calendar-dialog]');
+    if (!dialog) { downloadCalendar(ceremony); return; }
+    const start = new Date(ceremony.start);
+    const end = new Date(ceremony.end);
+    const title = `${ceremony.name} · ${INVITE.couple.firstNames}`;
+    const location = `${ceremony.venue}, ${ceremony.address}`;
+    const details = `Join us for ${ceremony.name.toLowerCase()}. Dress code: ${ceremony.dressCode}.`;
+    const googleDate = (date) => date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    const googleParams = new URLSearchParams({
+      action: 'TEMPLATE', text: title, dates: `${googleDate(start)}/${googleDate(end)}`,
+      details, location, stz: 'Africa/Johannesburg', etz: 'Africa/Johannesburg'
+    });
+    const outlookParams = new URLSearchParams({
+      path: '/calendar/action/compose', rru: 'addevent', subject: title,
+      startdt: start.toISOString(), enddt: end.toISOString(), body: details, location
+    });
+    const googleLink = one('[data-calendar-google]');
+    const outlookLink = one('[data-calendar-outlook]');
+    if (googleLink) googleLink.href = `https://calendar.google.com/calendar/render?${googleParams}`;
+    if (outlookLink) outlookLink.href = `https://outlook.live.com/calendar/0/deeplink/compose?${outlookParams}`;
+    const detail = one('[data-calendar-dialog-detail]');
+    if (detail) detail.textContent = `${ceremony.name} · ${new Intl.DateTimeFormat('en-ZA', { timeZone: 'Africa/Johannesburg', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(start)} · ${new Intl.DateTimeFormat('en-ZA', { timeZone: 'Africa/Johannesburg', hour: 'numeric', minute: '2-digit' }).format(start)}`;
+    dialog.showModal();
   }
 
   function render(key, updateUrl = true) {
@@ -240,6 +267,10 @@ const INVITE = {
     setText('[data-bind="heroDate"]', dateShort);
     setText('[data-bind="calendarDay"]', calendarDay);
     setText('[data-bind="calendarDate"]', calendarDate);
+    setText('[data-opening-ceremony]', ceremony.name);
+    setText('[data-opening-names]', INVITE.couple.firstNames);
+    setText('[data-opening-subline]', INVITE.shared.heroSubline);
+    setText('[data-opening-date]', `${calendarDay} · ${calendarDate}`);
     setText('[data-bind="heroTime"]', new Intl.DateTimeFormat('en-ZA', { timeZone: 'Africa/Johannesburg', hour: 'numeric', minute: '2-digit' }).format(start));
     setText('[data-bind="heroCeremony"]', ceremony.name);
     setText('[data-bind="ceremonyName"]', ceremony.name);
@@ -274,6 +305,8 @@ const INVITE = {
     }
     const heroImage = one('[data-hero-image]');
     if (heroImage) { heroImage.src = ceremony.heroImage; heroImage.alt = ceremony.heroAlt; }
+    const openingImage = one('[data-opening-image]');
+    if (openingImage) { openingImage.src = ceremony.heroImage; openingImage.alt = ceremony.heroAlt; }
     const countdownImage = one('[data-countdown-bg]');
     if (countdownImage) countdownImage.src = ceremony.countdownImage;
     renderGallery(ceremony.photos);
@@ -401,7 +434,15 @@ const INVITE = {
   document.querySelectorAll('[data-ceremony-button]').forEach((button) => {
     button.addEventListener('click', () => render(button.dataset.ceremonyButton));
   });
-  document.querySelectorAll('[data-calendar]').forEach((button) => button.addEventListener('click', () => downloadCalendar(INVITE.ceremonies[activeKey])));
+  document.querySelectorAll('[data-calendar]').forEach((button) => button.addEventListener('click', openCalendarChooser));
+  one('[data-calendar-close]')?.addEventListener('click', () => one('[data-calendar-dialog]')?.close());
+  one('[data-calendar-ics]')?.addEventListener('click', () => {
+    downloadCalendar(INVITE.ceremonies[activeKey]);
+    one('[data-calendar-dialog]')?.close();
+  });
+  one('[data-calendar-dialog]')?.addEventListener('click', (event) => {
+    if (event.target === event.currentTarget) event.currentTarget.close();
+  });
   one('[data-rsvp-form]')?.addEventListener('submit', (event) => {
     event.preventDefault();
     const form = event.currentTarget;

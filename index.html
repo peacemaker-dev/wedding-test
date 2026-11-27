@@ -18,7 +18,16 @@
     <div class="opening-envelope">
       <p class="opening-kicker">A celebration awaits</p>
       <div class="envelope-art" data-envelope>
-        <div class="envelope-letter"><span>YOU ARE INVITED</span><strong data-couple-initials>L &amp; T</strong></div>
+        <div class="envelope-letter" aria-label="Invitation preview">
+          <img class="envelope-preview-image" data-opening-image src="assets/white/w5.jpeg" alt="Lerato and Thabo in their wedding attire">
+          <span class="envelope-preview-shade" aria-hidden="true"></span>
+          <div class="envelope-preview-copy">
+            <span class="envelope-preview-kicker" data-opening-ceremony>The White Wedding</span>
+            <strong class="envelope-preview-names" data-opening-names>Lerato &amp; Thabo</strong>
+            <span class="envelope-preview-subline" data-opening-subline>invite you to celebrate</span>
+            <span class="envelope-preview-date" data-opening-date>Sunday · 14 February 2027</span>
+          </div>
+        </div>
         <div class="envelope-flap"></div>
         <div class="envelope-seal" aria-hidden="true"><span data-seal-initials>L · T</span></div>
         <div class="envelope-front"></div>
@@ -59,7 +68,6 @@
           <a class="text-link" href="#rsvp">Kindly RSVP <span aria-hidden="true">↗</span></a>
         </div>
       </div>
-      <a class="scroll-cue" href="#celebration" aria-label="Scroll to celebration details"><span></span></a>
     </section>
 
     <section class="intro section-pad" id="celebration">
@@ -238,5 +246,18 @@
     </div>
     <p class="footer-made"><span>Made for</span><strong data-bind="footerClient">Lerato &amp; Thabo</strong></p>
   </footer>
+  <dialog class="calendar-dialog" data-calendar-dialog aria-labelledby="calendar-dialog-title">
+    <div class="calendar-dialog-head">
+      <div><p class="section-label">SAVE THE DATE</p><h2 id="calendar-dialog-title">Add to your calendar</h2></div>
+      <button class="calendar-dialog-close" type="button" data-calendar-close aria-label="Close">×</button>
+    </div>
+    <p class="calendar-dialog-detail" data-calendar-dialog-detail></p>
+    <div class="calendar-options">
+      <a class="calendar-option" data-calendar-google target="_blank" rel="noopener noreferrer"><strong>Google Calendar</strong><span>Open a ready-to-save event</span></a>
+      <a class="calendar-option" data-calendar-outlook target="_blank" rel="noopener noreferrer"><strong>Outlook Calendar</strong><span>Open a ready-to-save event</span></a>
+      <button class="calendar-option" type="button" data-calendar-ics><strong>Apple / other calendars</strong><span>Download calendar invitation (.ics)</span></button>
+    </div>
+    <p class="calendar-dialog-note">Review the details and confirm save in your calendar app.</p>
+  </dialog>
 </body>
 </html>
