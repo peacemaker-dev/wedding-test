@@ -3159,3 +3159,6 @@ body {
   .calendar-dialog { padding: 20px; border-radius: 17px }
   .calendar-option { min-height: 60px; padding: 12px 14px }
 }
+
+/* Keep the invitation inside narrow in-app mobile browsers. */
+html, body { max-width: 100%; overflow-x: clip }
