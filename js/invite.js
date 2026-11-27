@@ -285,7 +285,16 @@ const INVITE = {
     setText('[data-bind="rsvpCopy"]', `Kindly let us know if you’ll be joining us by ${ceremony.rsvpBy}.`);
 
     const mapLink = one('[data-map-link]');
-    if (mapLink) mapLink.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ceremony.mapQuery)}`;
+    if (mapLink) {
+      const agent = navigator.userAgent || '';
+      const isIOS = /iPhone|iPad|iPod/i.test(agent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const search = `${ceremony.venue}, ${ceremony.mapQuery}, ${ceremony.address}`;
+      mapLink.href = isIOS
+        ? `https://maps.apple.com/search?query=${encodeURIComponent(search)}`
+        : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(search)}`;
+      const mapLabel = mapLink.querySelector('span:first-child');
+      if (mapLabel) mapLabel.textContent = isIOS ? 'Open in Apple Maps' : /Android/i.test(agent) ? 'Open in Google Maps' : 'Open directions';
+    }
     const mapFrame = one('[data-map-frame]');
     if (mapFrame) {
       mapFrame.src = `https://maps.google.com/maps?q=${encodeURIComponent(ceremony.mapQuery)}&output=embed`;
